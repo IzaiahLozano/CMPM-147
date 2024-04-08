@@ -118,7 +118,7 @@ function main() {
       "a letter",
       "distinct smell",
     ],
-    suspects: [
+    suspect: [
       "butler",
       "maid",
       "gardener",
@@ -162,9 +162,9 @@ function main() {
   
   const template = `Ahhh $detective, you finally made it!
   
-  Listen we got a bad feeling this is your guy. Looks like they made it all the way to good ol' $pre$post unfortunatley. It's a similar MO they attacked the $suspect of the $suspect, with a $murder_weapon. They left a message on the wall for you in the victim's blood saying "$message. Obvioculy they were expecting you $detective. We found a $murder_weapon next to the body, we're thinking the victim was trying to fight back. So far we've got a couple of suspects, the $suspect, $suspect, $suspect, $suspect, and the $suspect. We'll help as much as we can, and since this is your man you'll have to take the lead $detective. 
+  Listen we got a bad feeling this is your guy. Looks like they made it all the way to good ol' $pre$post unfortunatley. It's a similar MO they attacked the $suspect of the $suspect, with a $murder_weapon. They left a message on the wall for you in the victim's blood saying "$message". Obviously they were expecting you $detective. We found a $murder_weapon next to the body, we're thinking the victim was trying to fight back. So far we've got a couple of suspects, the $suspect, $suspect, $suspect, $suspect, and the $suspect. We'll help as much as we can, and since this is your man you'll have to take the lead $detective. 
   
-  Thank you officer, I wish we were meetign under different circumstances. I've been hunting this psycho down for $num years, and still he taunts me and I'm no where closer. They've killed $num people, I can't let them die in vain."
+  Thank you officer, I wish we were meeting under different circumstances. I've been hunting this psycho down for $num years, and still he taunts me and I'm no where closer. They've killed $num people, I can't let them die in vain."
   `;
   
   // STUDENTS: You don't need to edit code below this line.
