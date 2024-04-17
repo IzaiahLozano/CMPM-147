@@ -1,10 +1,27 @@
 /* exported setup, draw */
 let seed = 0;
 
-function setup() {
-  createCanvas(400, 200, WEBGL);
-  createButton("reimagine").mousePressed(() => seed++);
-  
+function resizeScreen() {
+  centerHorz = canvasContainer.width() / 2; // Adjusted for drawing logic
+  centerVert = canvasContainer.height() / 2; // Adjusted for drawing logic
+  console.log("Resizing...");
+  resizeCanvas(canvasContainer.width(), canvasContainer.height());
+  // redrawCanvas(); // Redraw everything based on new size
+}
+
+// listener for reimagine button
+$("#reimagine").click(function() {
+  seed++;
+});
+
+function setup() {  // place our canvas, making it fit our container
+  canvasContainer = $("#canvas-container");
+  let canvas = createCanvas(canvasContainer.width(), canvasContainer.height());
+  canvas.parent("canvas-container");
+  $(window).resize(function() {
+    resizeScreen();
+  });
+  resizeScreen();
 }
 
 function draw() {
