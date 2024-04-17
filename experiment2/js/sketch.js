@@ -1,12 +1,13 @@
 /* exported setup, draw */
 let seed = 0;
+let canvasContainer; // Declare canvasContainer globally
 
 function resizeScreen() {
-  centerHorz = canvasContainer.width() / 2; // Adjusted for drawing logic
-  centerVert = canvasContainer.height() / 2; // Adjusted for drawing logic
+  let centerHorz = canvasContainer.width() / 20; // Adjusted for drawing logic
+  let centerVert = canvasContainer.height() / 20; // Adjusted for drawing logic
   console.log("Resizing...");
   resizeCanvas(canvasContainer.width(), canvasContainer.height());
-  // redrawCanvas(); // Redraw everything based on new size
+  redraw(); // Redraw everything based on new size
 }
 
 // listener for reimagine button
@@ -14,13 +15,15 @@ $("#reimagine").click(function() {
   seed++;
 });
 
-function setup() {  // place our canvas, making it fit our container
+function setup() {
   canvasContainer = $("#canvas-container");
-  let canvas = createCanvas(canvasContainer.width(), canvasContainer.height());
+  let canvas = createCanvas(400, 200, WEBGL);
   canvas.parent("canvas-container");
+
   $(window).resize(function() {
     resizeScreen();
   });
+
   resizeScreen();
 }
 
@@ -47,19 +50,19 @@ function draw() {
   // Draw the left rectangle.
   noStroke();
   fill(ground);
-  rect(-200, 60, 400, 60);
+  rect(-width, 200, width * 2, 100);
 
   // Draw the left-center rectangle.
   fill(start);
-  rect(-200, 40, 400, 40);
+  rect(-width, 130, width * 2, 70);
 
   // Draw the right-center rectangle.
   fill(finish);
-  rect(-200, 20, 400, 30);
+  rect(-width, 60, width * 2, 70);
 
   // Draw the right rectangle.
   fill(sky);
-  rect(-200, 0, 400,20);
+  rect(-width, 0, width * 2, 60);
 
   // triangle(100,20,40,50,47,78)
   // let riverEnd = height * 0.1;
@@ -76,19 +79,19 @@ function draw() {
   // Draw the left rectangle.
   noStroke();
   fill(from);
-  rect(-200, -25, 400, 25);
+  rect(-width, -70, width*2, 70);
 
   // Draw the left-center rectangle.
   fill(interA);
-  rect(-200, -50, 400, 25);
+  rect(-width, -135, width*2, 65);
 
   // Draw the right-center rectangle.
   fill(interB);
-  rect(-200, -80, 400, 35);
+  rect(-width, -215, width*2, 80);
 
   // Draw the right rectangle.
   fill(to);
-  rect(-200, -100, 400,30);
+  rect(-width, -300, width*2,90);
 
   // triangle(100,20,40,50,47,78)
   // let riverEnd = height * 0.1;
