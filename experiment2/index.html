@@ -2,7 +2,7 @@
 <html>
 <head>
 	<!-- This title is used for tabs and bookmarks -->
-	<title>Experiment X - Subject/Topic</title>
+	<title>Experiment 2 - Living Impression</title>
 
 	<!-- Use UTF character set, a good idea with any webpage -->
 	<meta charset="UTF-8" />
@@ -32,30 +32,47 @@
 	<main id="content">
 		<section>
 
-			<h1>Experiment X - Subject/Topic</h1>
+			<h1>Experiment 2 - A Procedurally Generated Living Impression</h1>
 
 			<div class="minor-section">
 				<div id="canvas-container">
 					<!-- canvas will be added here -->
 				</div>
                 <div class="fullscreen-box">
+                    <button id="reimagine">Reimagine</button>
                     <button id="fullscreen">Fullscreen</button>
                 </div>
 			</div>
 
-			<div class="minor-section">
-				<h2>Description</h2>
-				<p>What are you trying to acomplish with this experiment?</p>
-			</div>
+            <div class="two-column">
 
-			<div class="minor-section">
-				<h2>Technical</h2>
-				<p>Describe in detail what you did technically and how it works?</p>
-			</div>
+                <div class="minor-section">
+                    <h2>Description</h2>
+                    <p>This project offers a generative, living impression of this inspiring image:</p>
+                    <div class="image-wrapper">
+                        <img src="https://cdn.glitch.global/7d16fa11-946e-4a97-be22-b7716d592110/360_F_601961132_RFzq512eQvmUHBQmvN3OZXeMvEwpN12T.jpg?v=1713132996243"> [source](https://www.google.com/url?sa=i&url=https%3A%2F%2Fstock.adobe.com%2Fsearch%3Fk%3Dpsychedelic%2Bforest&psig=AOvVaw0Z39Oz1-hmobwXH7NVsr69&ust=1713215822168000&source=images&cd=vfe&opi=89978449&ved=0CBIQjRxqFwoTCJDr1b7QwoUDFQAAAAAdAAAAABAE)
+
+                    </div>
+                </div>
+
+                <div class="minor-section">
+                    <h2>Technical</h2>
+                    <p>Relation to inspring image:</p>
+                    <ul>
+                        <li>Color: The sky, grass, mushrooms, and river colors were sampled from the inspiring image using a website eyedropper tool.</li>
+                        <li>Primitives: The sky is rendered with `rectangle` primitives.</li>
+                        <li>Polygons: The background river is a single randomly polygon using `vertex` calls.</li>
+                        <li>Composition: Different random seed values lead to differently shaped mushroom caps, stems and stars.</li>
+                        <li>Life: The mushroom caps spin along as the stems but those are harder to tell since there are no strokes. The river also moves as if it's breathign I wanted to warp it more but I couldn't figure out how to curve it as such so I was stuck with a straight lined river. The stars also twinkle over time.</li>
+                    </ul>
+                    
+                </div>
+
+            </div>
 
 			<div class="minor-section">
 				<h2>Reflection</h2>
-				<p>Each person that worked on the code should reflect on the process, the difficulties, and the successes of the experiment.</p>
+				<p>My vision was a lot more ambitious than the time I had for this project as well as my knowledge of P5JS. It was cool though to see what I could do. I had a lot of fails but it was fun to try things out and mess witht he code. Especially witht he P5JS library it really helped me to better understand the code better. Some stuff I'm still a little confused on how it acted the way it did but with future projects I'm sure it'll make sense.</p>
 			</div>
 
 		</section>
