@@ -8,7 +8,7 @@ function setup() {  // place our canvas, making it fit our container
   $(window).resize(function() {
     resizeScreen();
   });
-  resizeScreen();
+  //resizeScreen();
 } 
 
 
