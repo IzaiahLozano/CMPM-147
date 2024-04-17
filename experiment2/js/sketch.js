@@ -1,11 +1,16 @@
 /* exported setup, draw */
 let seed = 0;
 
-function setup() {
-  createCanvas(400, 200, WEBGL);
-  createButton("reimagine").mousePressed(() => seed++);
-  
-}
+function setup() {  // place our canvas, making it fit our container
+  canvasContainer = $("#canvas-container");
+  let canvas = createCanvas(canvasContainer.width(), canvasContainer.height());
+  canvas.parent("canvas-container");
+  $(window).resize(function() {
+    resizeScreen();
+  });
+  resizeScreen();
+} 
+
 
 function draw() {
   randomSeed(seed);
