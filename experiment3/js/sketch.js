@@ -289,17 +289,14 @@ function drawGridOvr(grid) {
 }
 
 function gridCheck(grid, i, j, target) {
-  // Check if the location (i, j) is inside the grid
   if (i >= 0 && i < grid.length && j >= 0 && j < grid[i].length) {
-    // Check if grid[i][j] is equal to the target
     return grid[i][j] === target;
   } else {
-    return false; // Location is out of bounds
+    return false; 
   }
 }
 
 function gridCode(grid, i, j, target) {
-  // Initialize bits for north, south, east, west
   let northBit = gridCheck(grid, i - 1, j, target) ? 1 : 0;
   let southBit = gridCheck(grid, i + 1, j, target) ? 1 : 0;
   let eastBit = gridCheck(grid, i, j + 1, target) ? 1 : 0;
