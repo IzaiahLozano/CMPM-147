@@ -2,7 +2,7 @@
 <html>
 <head>
 	<!-- This title is used for tabs and bookmarks -->
-	<title>Experiment X - Subject/Topic</title>
+	<title>Experiment 3 - Alternate Worlds</title>
 
 	<!-- Use UTF character set, a good idea with any webpage -->
 	<meta charset="UTF-8" />
@@ -35,9 +35,22 @@
 			<h1>Experiment X - Subject/Topic</h1>
 
 			<div class="minor-section">
-				<div id="canvas-container">
-					<!-- canvas will be added here -->
-				</div>
+				<button id="reseedButton">
+					reseed
+				  </button>
+				  <span id="seedReport"></span>
+				  <hr />
+				  <span id="canvasContainer" style="margin: 10px;"></span>
+				  <textarea cols="20" rows="20" id="asciiBox" style="opacity: 0.5; letter-spacing: 1ex; width: 320px; margin: 10px; font-family: monospace;"></textarea>
+				
+				  <button id="reseedButton2">
+					reseed
+				  </button>
+				  <span id="seedReport2"></span>
+				  <hr />
+				  <span id="canvasContainer2" style="margin: 10px;"></span>
+				  <textarea cols="20" rows="20" id="asciiBox2" style="opacity: 0.5; letter-spacing: 1ex; width: 320px; margin: 10px; font-family: monospace;"></textarea>
+				
                 <div class="fullscreen-box">
                     <button id="fullscreen">Fullscreen</button>
                 </div>
@@ -45,17 +58,17 @@
 
 			<div class="minor-section">
 				<h2>Description</h2>
-				<p>What are you trying to acomplish with this experiment?</p>
+				<p>There are two parts to this experiment. For the overworld I was looking to create a biodiverse landscape surrounded by water. Something very similar to the example shown. For the Underworld I wanted to make a dungeon lair with multiple caves and a random chance that a treaure chest would appear. With every click of the reseed button a new generation of the worlds will be created providing a unique landscape with every click. The users could also use a text box to edit the canvas directly and change the map to their liking.</p>
 			</div>
 
 			<div class="minor-section">
 				<h2>Technical</h2>
-				<p>Describe in detail what you did technically and how it works?</p>
+				<p>A lot of what I did came down to multiple for loops and if statements. I need to fill the canvas with a mix of characters like '_' or '$'. These charcaters woudl then help me when I would iterate over the canvas and checking the characters. If the specific character was found a tile would be placed in the exact same x,y coordinate as in the text box but in the canvas. For the worm I used an ellipses and another for loop to draw the worm across the land. For the chest chance I needed a simple math equation of probability and added that in whent he canvas was generated. </p>
 			</div>
 
 			<div class="minor-section">
 				<h2>Reflection</h2>
-				<p>Each person that worked on the code should reflect on the process, the difficulties, and the successes of the experiment.</p>
+				<p>Overall this was definitley the most challenging experiements we've gotten so far. I wanted to have the water move like int he example but I couldn't figure out the code to do it correctly, it also didn't help that I couldn't get percise coordinates for the tile map. This one definitley challenged my coding skills. Even more so when trying to add both screens onto the same page. Luckily I got help from Alex to get the boxs on the same page. Half of the time spent on this project was debugging. A lot of things I would try would break the canvas in weird ways. Some helped the creative process and some were just plain frusturating. Overall the experiment was a creative and technical challenge that pushed me.</p>
 			</div>
 
 		</section>
