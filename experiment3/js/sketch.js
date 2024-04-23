@@ -13,7 +13,7 @@ var s = function( sketch ) {
 
 
   //function preload() {
-    
+     
   sketch.preload = function() {
     tilesetImage = sketch.loadImage(
       "https://cdn.glitch.com/25101045-29e2-407a-894c-e0243cd8c7c6%2FtilesetP8.png?v=1611654020438"
