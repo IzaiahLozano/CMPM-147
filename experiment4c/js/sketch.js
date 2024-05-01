@@ -1,79 +1,131 @@
-// sketch.js - purpose and description here
-// Author: Your Name
-// Date:
+"use strict";
 
-// Here is how you might set up an OOP p5.js project
-// Note that p5.js looks for a file called sketch.js
+/* global XXH */
+/* exported --
+    p3_preload
+    p3_setup
+    p3_worldKeyChanged
+    p3_tileWidth
+    p3_tileHeight
+    p3_tileClicked
+    p3_drawBefore
+    p3_drawTile
+    p3_drawSelectedTile
+    p3_drawAfter
+*/
 
-// Constants - User-servicable parts
-// In a longer project I like to put these in a separate file
-const VALUE1 = 1;
-const VALUE2 = 2;
+const oceanColors = [
+  [0, 51, 102],   // Dark blue
+  [0, 102, 204],  // Deep blue
+  [51, 153, 255], // Blue
+  [102, 178, 255],// Light blue
+  //[153, 204, 255],// Pale blue
+  [204, 229, 255],// Very pale blue
+];
 
-// Globals
-let myInstance;
-let canvasContainer;
-var centerHorz, centerVert;
+let worldSeed;
+let clicks = {};
+let timeElapsed = 0;
+const waveFrequency = 0.05; // Adjust this to change wave frequency
+const waveMagnitude = 5;    // Adjust this to change wave magnitude
 
-class MyClass {
-    constructor(param1, param2) {
-        this.property1 = param1;
-        this.property2 = param2;
-    }
 
-    myMethod() {
-        // code to run when method is called
-    }
+
+
+function p3_preload() {}
+
+function p3_setup() {}
+
+function p3_worldKeyChanged(key) {
+  worldSeed = XXH.h32(key, 0);
+  noiseSeed(worldSeed);
+  randomSeed(worldSeed);
 }
 
-function resizeScreen() {
-  centerHorz = canvasContainer.width() / 2; // Adjusted for drawing logic
-  centerVert = canvasContainer.height() / 2; // Adjusted for drawing logic
-  console.log("Resizing...");
-  resizeCanvas(canvasContainer.width(), canvasContainer.height());
-  // redrawCanvas(); // Redraw everything based on new size
+function p3_tileWidth() {
+  return 32;
 }
 
-// setup() function is called once when the program starts
-function setup() {
-  // place our canvas, making it fit our container
-  canvasContainer = $("#canvas-container");
-  let canvas = createCanvas(canvasContainer.width(), canvasContainer.height());
-  canvas.parent("canvas-container");
-  // resize canvas is the page is resized
-
-  // create an instance of the class
-  myInstance = new MyClass("VALUE1", "VALUE2");
-
-  $(window).resize(function() {
-    resizeScreen();
-  });
-  resizeScreen();
+function p3_tileHeight() {
+  return 16;
 }
 
-// draw() function is called repeatedly, it's the main animation loop
-function draw() {
-  background(220);    
-  // call a method on the instance
-  myInstance.myMethod();
+let [tw, th] = [p3_tileWidth(), p3_tileHeight()];
 
-  // Set up rotation for the rectangle
-  push(); // Save the current drawing context
-  translate(centerHorz, centerVert); // Move the origin to the rectangle's center
-  rotate(frameCount / 100.0); // Rotate by frameCount to animate the rotation
-  fill(234, 31, 81);
+function p3_tileClicked(i, j) {
+  let key = [i, j];
+  clicks[key] = 1 + (clicks[key] | 0);
+  
+}
+
+function p3_drawBefore() {}
+
+
+function interpolateColors(color1, color2, factor) {
+  let result = [];
+  for (let i = 0; i < 3; i++) {
+    result[i] = Math.round(color1[i] + (color2[i] - color1[i]) * factor);
+  }
+  return result;
+}
+
+function p3_drawTile(i, j) {
   noStroke();
-  rect(-125, -125, 250, 250); // Draw the rectangle centered on the new origin
-  pop(); // Restore the original drawing context
 
-  // The text is not affected by the translate and rotate
-  fill(255);
-  textStyle(BOLD);
-  textSize(140);
-  text("p5*", centerHorz - 105, centerVert + 40);
+  let hashValue = XXH.h32("tile:" + [i, j], worldSeed);
+  let oceanIndex1 = Math.floor(map(hashValue, 0, Math.pow(2, 32), 0, oceanColors.length));
+  let oceanIndex2 = (oceanIndex1 + 1) % oceanColors.length;
+  let blendFactor = sin(timeElapsed / 10) / 2 + 0.5; // Smooth transition over time
+  let blendedColor = interpolateColors(oceanColors[oceanIndex1], oceanColors[oceanIndex2], blendFactor);
+  fill(blendedColor[0], blendedColor[1], blendedColor[2]);
+
+  push();
+
+  let offsetY = sin(timeElapsed + i * waveFrequency) * waveMagnitude; // Add wave effect
+  translate(0, offsetY);
+
+  beginShape();
+  vertex(-tw, 0);
+  vertex(0, th);
+  vertex(tw, 0);
+  vertex(0, -th);
+  endShape(CLOSE);
+
+  let n = clicks[[i, j]] | 0;
+  if (n % 2 == 1) {
+    fill(0, 0, 0, 32);
+    arc(0, -5, 45, 25, 0, PI);
+    translate(-5, -10);
+    fill(205, 133, 63);
+    arc(0, 0, 45, 25, 0, PI);
+    rect(0, -10, 5, 15)
+    fill('black')
+    triangle(0, -8, 0, -20, 20, -12.5);
+    fill('white')
+    ellipse(5, -14, 7, 4);
+  }
+  
+  
+
+  pop();
 }
 
-// mousePressed() function is called once after every time a mouse button is pressed
-function mousePressed() {
-    // code to run when mouse is pressed
+function p3_drawSelectedTile(i, j) {
+  noFill();
+  stroke(0, 255, 0, 128);
+
+  beginShape();
+  vertex(-tw, 0);
+  vertex(0, th);
+  vertex(tw, 0);
+  vertex(0, -th);
+  endShape(CLOSE);
+
+  noStroke();
+  fill(0);
+  text("tile " + [i, j], 0, 0);
+}
+
+function p3_drawAfter() {
+  timeElapsed += 0.1; // Increment time for animation
 }

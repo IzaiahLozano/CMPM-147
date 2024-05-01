@@ -2,7 +2,7 @@
 <html>
 <head>
 	<!-- This title is used for tabs and bookmarks -->
-	<title>Experiment X - Subject/Topic</title>
+	<title>Experiment 4b - Infinite World: Rainbow Land</title>
 
 	<!-- Use UTF character set, a good idea with any webpage -->
 	<meta charset="UTF-8" />
@@ -26,6 +26,8 @@
 	<script type="text/javascript" src="./js/project.js" DEFER></script>
 	<!-- Use me for a p5.js project -->
 	<script type="text/javascript" src="./js/sketch.js" DEFER></script>
+	<script type="text/javascript" src="./js/xxhash.min.js" DEFER></script>
+	<script type="text/javascript" src="./js/engine.js" DEFER></script>
 </head>
 <body>
 	<!-- Style this page by changing the CSS in ../css/site.css or css/experiment.css -->
@@ -45,17 +47,17 @@
 
 			<div class="minor-section">
 				<h2>Description</h2>
-				<p>What are you trying to acomplish with this experiment?</p>
+				<p>With this iteration I wanted to mess with the sporadic color change. Originall the idea was to make a dance floor, but then I realized if I made the whole floor a dance floor using this method then the user's world key input wouldn't seem to matter as much. So a new inspiration came to be when I remembered Rainbow World from Mario Kart. I thought it'd be a good idea to make the land for Rainbow World and the gaps would be pitch black since it's up in space. Follwoing that inspiration I decided to make the users mouse clicking spawn in a low quailty version of Mario.</p>
 			</div>
 
 			<div class="minor-section">
 				<h2>Technical</h2>
-				<p>Describe in detail what you did technically and how it works?</p>
+				<p>To achieve this look I had created an array of colors inspired by a dance floor and then a rainbow. I then used this array in a random choice selction for the fill line of the tiles. In the if statement I then made any other tile not in the has equation be black to represent the empty void. To create "Mario" I made him out of rectangles of varrying sizes with specific colors to give the ressemblance of Mario. Then I used the same has equation for the tiles for the placement of Mario so that he could only be placed on the land of Rainbow World. </p>
 			</div>
 
 			<div class="minor-section">
 				<h2>Reflection</h2>
-				<p>Each person that worked on the code should reflect on the process, the difficulties, and the successes of the experiment.</p>
+				<p> This one was a lot quicker, at least for the land. The only thing that took long was making the rectangles look like Mario and stay in the boundaries. The use of the "glitch" was fun to implement intot he creation of the world.</p>
 			</div>
 
 		</section>

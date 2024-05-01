@@ -1,79 +1,144 @@
-// sketch.js - purpose and description here
-// Author: Your Name
-// Date:
+"use strict";
 
-// Here is how you might set up an OOP p5.js project
-// Note that p5.js looks for a file called sketch.js
+/* global XXH */
+/* exported --
+    p3_preload
+    p3_setup
+    p3_worldKeyChanged
+    p3_tileWidth
+    p3_tileHeight
+    p3_tileClicked
+    p3_drawBefore
+    p3_drawTile
+    p3_drawSelectedTile
+    p3_drawAfter
+*/
 
-// Constants - User-servicable parts
-// In a longer project I like to put these in a separate file
-const VALUE1 = 1;
-const VALUE2 = 2;
+let pinkShades = [
+  [255, 192, 203], // Light Pink
+  [255, 182, 193], // Light Pink
+  [255, 105, 180], // Hot Pink
+  [255, 20, 147],  // Deep Pink
+  [248,200, 220] // Pastel Pink
+];
 
-// Globals
-let myInstance;
-let canvasContainer;
-var centerHorz, centerVert;
+let pinkcottoncandy = [
+  [255, 192, 203], // Light Pink
+  [255, 182, 193], // Light Pink
+  [255, 20, 147],  // Deep Pink
+  [248,200, 220] // Pastel Pink
+]
 
-class MyClass {
-    constructor(param1, param2) {
-        this.property1 = param1;
-        this.property2 = param2;
-    }
+let bluecottoncandy = [
+  [204,238,255], // Light Pink
+  [216,242,255], // Light Pink
+  [227,247,255],  // Deep Pink
+  [237,250,255] // Pastel Pink
+]
 
-    myMethod() {
-        // code to run when method is called
-    }
+
+function p3_preload() {}
+
+function p3_setup() {}
+
+let worldSeed;
+
+function p3_worldKeyChanged(key) {
+  worldSeed = XXH.h32(key, 0);
+  noiseSeed(worldSeed);
+  randomSeed(worldSeed);
 }
 
-function resizeScreen() {
-  centerHorz = canvasContainer.width() / 2; // Adjusted for drawing logic
-  centerVert = canvasContainer.height() / 2; // Adjusted for drawing logic
-  console.log("Resizing...");
-  resizeCanvas(canvasContainer.width(), canvasContainer.height());
-  // redrawCanvas(); // Redraw everything based on new size
+function p3_tileWidth() {
+  return 32;
+}
+function p3_tileHeight() {
+  return 16;
 }
 
-// setup() function is called once when the program starts
-function setup() {
-  // place our canvas, making it fit our container
-  canvasContainer = $("#canvas-container");
-  let canvas = createCanvas(canvasContainer.width(), canvasContainer.height());
-  canvas.parent("canvas-container");
-  // resize canvas is the page is resized
+let leafColorCounter = 0;
+const leafColorChangeRate = 10;
 
-  // create an instance of the class
-  myInstance = new MyClass("VALUE1", "VALUE2");
+let [tw, th] = [p3_tileWidth(), p3_tileHeight()];
 
-  $(window).resize(function() {
-    resizeScreen();
-  });
-  resizeScreen();
+let clicks = {};
+
+function p3_tileClicked(i, j) {
+  let key = [i, j];
+  clicks[key] = 1 + (clicks[key] | 0);
+  
 }
 
-// draw() function is called repeatedly, it's the main animation loop
-function draw() {
-  background(220);    
-  // call a method on the instance
-  myInstance.myMethod();
+function p3_drawBefore() {}
 
-  // Set up rotation for the rectangle
-  push(); // Save the current drawing context
-  translate(centerHorz, centerVert); // Move the origin to the rectangle's center
-  rotate(frameCount / 100.0); // Rotate by frameCount to animate the rotation
-  fill(234, 31, 81);
+
+function p3_drawTile(i, j) {
   noStroke();
-  rect(-125, -125, 250, 250); // Draw the rectangle centered on the new origin
-  pop(); // Restore the original drawing context
+  
+  let hashValue = XXH.h32("tile:" + [i, j], worldSeed);
+  let pinkIndex = Math.floor(map(hashValue, 0, Math.pow(2, 32), 0, pinkShades.length));
+  let pinkColor = pinkShades[pinkIndex];
+  fill(pinkColor[0], pinkColor[1], pinkColor[2]);
 
-  // The text is not affected by the translate and rotate
-  fill(255);
-  textStyle(BOLD);
-  textSize(140);
-  text("p5*", centerHorz - 105, centerVert + 40);
+  
+  /* this code below will give a randomized floor, we can make a dance floor out of this*/
+  // if (XXH.h32("tile:" + [i, j], worldSeed) % 2 == 0) {
+  //   fill(random(pinkShades));
+  // } else {
+  //   fill(255, 200);
+  // }
+
+  push();
+
+  beginShape();
+  vertex(-tw, 0);
+  vertex(0, th);
+  vertex(tw, 0);
+  vertex(0, -th);
+  endShape(CLOSE);
+
+  let n = clicks[[i, j]] | 0;
+  if (n % 2 == 1) {
+    fill('white');
+    rect(-5, -20, 10, 20);
+    
+    if (random() < 0.5) {
+      fill(random(pinkcottoncandy));
+    } else {
+      fill(random(bluecottoncandy));
+    }
+    
+
+    
+    ellipse(0, -30, 30, 30);
+    //translate(0, -10);
+    ellipse(-10, -25, 20, 20);
+    ellipse(10, -25, 20, 20);
+    
+    ellipse(0, -30, 30, 30);
+    //translate(0, -10);
+    ellipse(-10, -25, 20, 20);
+    ellipse(10, -25, 20, 20);
+  } 
+  
+
+  pop();
 }
 
-// mousePressed() function is called once after every time a mouse button is pressed
-function mousePressed() {
-    // code to run when mouse is pressed
+function p3_drawSelectedTile(i, j) {
+  noFill();
+  stroke(0, 255, 0, 128);
+
+  beginShape();
+  vertex(-tw, 0);
+  vertex(0, th);
+  vertex(tw, 0);
+  vertex(0, -th);
+  endShape(CLOSE);
+
+  noStroke();
+  fill(0);
+  text("tile " + [i, j], 0, 0);
 }
+
+function p3_drawAfter() {}
